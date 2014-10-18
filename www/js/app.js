@@ -65,7 +65,7 @@ angular.module('app', ['ionic', 'firebase'])
 
 .constant('firebaseUrl', 'https://redint.firebaseio.com')
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -78,5 +78,16 @@ angular.module('app', ['ionic', 'firebase'])
       StatusBar.styleLightContent();
     }
   });
+
+  $rootScope.safeApply = function(fn){
+    var phase = this.$root ? this.$root.$$phase : this.$$phase;
+    if(phase === '$apply' || phase === '$digest') {
+      if(fn && (typeof(fn) === 'function')) {
+        fn();
+      }
+    } else {
+      this.$apply(fn);
+    }
+  };
 });
 

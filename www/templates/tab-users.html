@@ -1,8 +1,8 @@
 <ion-view title="Participants">
   <ion-content>
-    <loader ng-show="!data.users"></loader>
+    <loader ng-show="!(data.users && data.users.length > 0)"></loader>
     <div class="list people-list">
-      <div class="item" collection-repeat="user in data.users"
+      <div class="item" collection-repeat="user in (data.users | matchUser:data.user)"
            collection-item-width="'100%'"
            collection-item-height="83" ng-style="{height: 83}">
         <span class="pull-right">

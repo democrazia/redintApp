@@ -9,15 +9,15 @@ angular.module('app')
 })
 
 
-.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, PluginsSrv){
-  var data = {};
+.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, StorageSrv, PluginsSrv){
+  var data = {
+    user: StorageSrv.get('user')
+  };
   $scope.data = data;
   $scope.ctxData = {};
 
   PluginsSrv.getPosition().then(function(position){
-    return UserSrv.getPresents(position.coords);
-  }).then(function(users){
-    data.users = users;
+    data.users = UserSrv.syncUsers(position.coords);
   });
 
   $ionicPopover.fromTemplateUrl('templates/popover/user-actions.html', {
