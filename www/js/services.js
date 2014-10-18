@@ -1,11 +1,11 @@
 angular.module('app')
 
-.factory('UserSrv', function($rootScope, $q, $http, firebaseUrl){
+.factory('UserSrv', function($rootScope, $q, $http, $firebase, firebaseUrl){
   'use strict';
   var userUrl = firebaseUrl+'/users';
   var firebaseRef = new Firebase(userUrl);
   //var geoFire = new GeoFire(firebaseRef);
-  var collection = [];
+  /*var collection = [];
   firebaseRef.on('child_added', function(childSnapshot, prevChildName){
     var user = childSnapshot.val();
     console.log('child_added', user);
@@ -34,7 +34,8 @@ angular.module('app')
         }
       }
     });
-  });
+  });*/
+  var sync = $firebase(firebaseRef);
 
   var service = {
     syncUsers: syncUsers,
@@ -44,7 +45,7 @@ angular.module('app')
   };
 
   function syncUsers(coords){
-    return collection;
+    return sync.$asArray();
   }
 
   function syncLocalUsers(coords){
