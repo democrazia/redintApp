@@ -1,5 +1,14 @@
 <ion-view title="Participants">
-  <ion-content class="padding">
-    <h1>Dash</h1>
+  <ion-content>
+    <div class="list people-list">
+      <div class="item" collection-repeat="p in data.peoples"
+           collection-item-width="'100%'"
+           collection-item-height="70" ng-style="{height: 70}">
+        <span class="pull-right label {{p.profile.id}}">{{p.profile.name}}</span>
+        <h2>{{p.name}}</h2>
+        <!--<button class="pull-right button button-icon ion-more" ng-click="popover.show($event)"></button>-->
+        <p>{{p.description}}</p>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

@@ -1,22 +1,20 @@
 angular.module('app')
 
-.factory('Friends', function($q){
-  // Some fake testing data
+.factory('PeopleSrv', function($q){
+  'use strict';
   var service = {
-    all: function(){
-      return $q.when(friends);
-    },
-    get: function(friendId){
-      return $q.when(friends[friendId]);
-    }
+    getPresents: getPresents
   };
 
-  var friends = [
-    { id: 0, name: 'Scruff McGruff' },
-    { id: 1, name: 'G.I. Joe' },
-    { id: 2, name: 'Miss Frizzle' },
-    { id: 3, name: 'Ash Ketchum' }
-  ];
+  function getPresents(){
+    return $q.when([
+      {id: '1', name: 'Kevin', description: 'Développeur web fullstack', profile: {id: 'dev', name: 'Dév'}, pitcher: true},
+      {id: '2', name: 'Perrine', description: 'Designer print', profile: {id: 'crea', name: 'Créa'}, pitcher: false},
+      {id: '3', name: 'Claude', description: 'Commercial chez Danone', profile: {id: 'biz', name: 'Biz'}, pitcher: false},
+      {id: '4', name: 'Alice', description: 'Chef de projet, BNP', profile: {id: 'biz', name: 'Biz'}, pitcher: true},
+      {id: '5', name: 'Julie', description: 'Développeuse mobile, iOS / Android', profile: {id: 'dev', name: 'Dév'}, pitcher: false}
+    ]);
+  }
 
   return service;
 });
