@@ -14,13 +14,11 @@ angular.module('app')
   $scope.data = data;
   $scope.ctxData = {};
 
-  setTimeout(function(){
-    PluginsSrv.getPosition().then(function(position){
-      return UserSrv.getPresents(position.coords);
-    }).then(function(users){
-      data.users = users;
-    });
-  }, 2000);
+  PluginsSrv.getPosition().then(function(position){
+    return UserSrv.getPresents(position.coords);
+  }).then(function(users){
+    data.users = users;
+  });
 
   $ionicPopover.fromTemplateUrl('templates/popover/user-actions.html', {
     scope: $scope
