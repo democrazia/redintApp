@@ -1,9 +1,22 @@
 <ion-view title="Chats">
   <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="friend in friends" type="item-text-wrap" ui-sref="tab.chat({chatId: friend.id})">
-        {{friend.name}}
-      </ion-item>
-    </ion-list>
+    <div ng-repeat="message in messages" ng-class="{ other: message.userId != myId }" class="message">
+
+      <div class="photo icon ion-person"></div>
+      <div class="message"><span>{{ message.text }}</span>
+      </div>
+
+    </div>
   </ion-content>
+
+  <ion-footer-bar keyboard-attach class="bar-stable item-input-inset">
+    <button class="button button-clear io ion-android-camera" ng-click="takePhoto()">
+    </button>
+    <label class="item-input-wrapper">
+      <input type="text" placeholder="Type your message" on-return="sendMessage()" ng-model="data.message" on-focus="inputUp()" on-blur="inputDown()" />
+    </label>
+    <button class="button button-clear" ng-click="sendMessage()">
+      Send
+    </button>
+  </ion-footer-bar>
 </ion-view>
