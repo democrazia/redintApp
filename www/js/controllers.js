@@ -1,6 +1,14 @@
 angular.module('app')
 
 
+.controller('TabCtrl', function($scope, $state, StorageSrv){
+  var user = StorageSrv.get('user');
+  if(!user || !user.name){
+    $state.go('tab.profile');
+  }
+})
+
+
 .controller('PeopleCtrl', function($scope, $ionicPopover, PeopleSrv){
   var data = {};
   $scope.data = data;

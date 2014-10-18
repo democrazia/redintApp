@@ -14,49 +14,50 @@ angular.module('app', ['ionic', 'firebase'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
-    // Each tab has its own nav history stack:
-    .state('tab.people', {
-      url: '/people',
-      views: {
-        'tab-people': {
-          templateUrl: 'templates/tab-people.html',
-          controller: 'PeopleCtrl'
-        }
+  // setup an abstract state for the tabs directive
+  .state('tab', {
+    url: '/tab',
+    abstract: true,
+    templateUrl: 'templates/tabs.html',
+    controller: 'TabCtrl'
+  })
+  // Each tab has its own nav history stack:
+  .state('tab.people', {
+    url: '/people',
+    views: {
+      'tab-people': {
+        templateUrl: 'templates/tab-people.html',
+        controller: 'PeopleCtrl'
       }
-    })
-    .state('tab.chats', {
-      url: '/chats',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
-        }
+    }
+  })
+  .state('tab.chats', {
+    url: '/chats',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/tab-chats.html',
+        controller: 'ChatsCtrl'
       }
-    })
-    .state('tab.chat', {
-      url: '/chat/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat.html',
-          controller: 'ChatCtrl'
-        }
+    }
+  })
+  .state('tab.chat', {
+    url: '/chat/:chatId',
+    views: {
+      'tab-chats': {
+        templateUrl: 'templates/chat.html',
+        controller: 'ChatCtrl'
       }
-    })
-    .state('tab.profile', {
-      url: '/profile',
-      views: {
-        'tab-profile': {
-          templateUrl: 'templates/tab-profile.html',
-          controller: 'ProfileCtrl'
-        }
+    }
+  })
+  .state('tab.profile', {
+    url: '/profile',
+    views: {
+      'tab-profile': {
+        templateUrl: 'templates/tab-profile.html',
+        controller: 'ProfileCtrl'
       }
-    });
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/people');

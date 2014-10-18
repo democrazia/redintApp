@@ -36,4 +36,32 @@ angular.module('app')
   }
 
   return service;
+})
+
+.factory('StorageSrv', function($window){
+  'use strict';
+  var localStorageCache = {};
+  var localStoragePrefix = 'ionic-';
+  var service = {
+    get: get,
+    set: set
+  };
+
+  function get(key){
+    if(!localStorageCache[key] && $window.localStorage){
+      localStorageCache[key] = JSON.parse($window.localStorage.getItem(localStoragePrefix+key));
+    }
+    return angular.copy(localStorageCache[key]);
+  }
+
+  function set(key, value){
+    if(!angular.equals(localStorageCache[key], value)){
+      localStorageCache[key] = angular.copy(value);
+      if($window.localStorage){
+        $window.localStorage.setItem(localStoragePrefix+key, JSON.stringify(localStorageCache[key]));
+      }
+    }
+  }
+
+  return service;
 });
