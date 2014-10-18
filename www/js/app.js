@@ -35,44 +35,44 @@ angular.module('app', ['ionic'])
       templateUrl: "templates/tabs.html"
     })
     // Each tab has its own nav history stack:
-    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.people', {
+      url: '/people',
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
-          controller: 'DashCtrl'
+        'tab-people': {
+          templateUrl: 'templates/tab-people.html',
+          controller: 'PeopleCtrl'
         }
       }
     })
-    .state('tab.friends', {
-      url: '/friends',
+    .state('tab.chats', {
+      url: '/chats',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/tab-friends.html',
-          controller: 'FriendsCtrl'
+        'tab-chats': {
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ChatsCtrl'
         }
       }
     })
-    .state('tab.friend-detail', {
-      url: '/friend/:friendId',
+    .state('tab.chat', {
+      url: '/chat/:chatId',
       views: {
-        'tab-friends': {
-          templateUrl: 'templates/friend-detail.html',
-          controller: 'FriendDetailCtrl'
+        'tab-chats': {
+          templateUrl: 'templates/chat.html',
+          controller: 'ChatCtrl'
         }
       }
     })
-    .state('tab.account', {
-      url: '/account',
+    .state('tab.profile', {
+      url: '/profile',
       views: {
-        'tab-account': {
-          templateUrl: 'templates/tab-account.html',
-          controller: 'AccountCtrl'
+        'tab-profile': {
+          templateUrl: 'templates/tab-profile.html',
+          controller: 'ProfileCtrl'
         }
       }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
+  $urlRouterProvider.otherwise('/tab/people');
 });
 
