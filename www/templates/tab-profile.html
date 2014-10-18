@@ -1,34 +1,32 @@
 <ion-view title="Profil">
-  <ion-content class="padding">
-    <h1>Account2</h1>
-<div class="list">
-  <label class="item item-input">
-    <input type="text" placeholder="Nickname">
-  </label>
-  <label class="item item-input">
-    <textarea placeholder="Description"></textarea>
-  </label>
-</div>
-<div class="list">
-  <label class="item item-input item-select">
-    <div class="input-label">
-      Your affinity
+  <ion-content>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Pseudo :</span>
+        <input type="text" placeholder="John" ng-model="data.user.profile.name">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Description :</span>
+        <textarea placeholder="Développeur web full stack ..." ng-model="data.user.profile.description"></textarea>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">Profil :</div>
+        <select ng-model="data.user.profile.status" ng-options="profile as profile.name for profile in data.status track by profile.id"></select>
+      </label>
+      <div class="item item-toggle">
+        Porteur de projet :
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="data.user.profile.pitcher">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </div>
     </div>
-    <select>
-      <option>Blue</option>
-      <option selected>Yellow</option>
-      <option>Red</option>
-    </select>
-  </label>
-</div>
-<ul class="list">
-
-  <li class="item item-checkbox">
-     <label class="checkbox">
-       <input type="checkbox">
-     </label>
-     I have a dream
-  </li>
-</ul>
+    <div class="padding">
+      <button class="button button-block button-positive" ng-click="save(data.user.profile)" ng-disabled="data.saving">
+        <i class="icon ion-loading-c" ng-show="data.saving"></i> Mettre à jour
+      </button>
+    </div>
   </ion-content>
 </ion-view>

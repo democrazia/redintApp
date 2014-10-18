@@ -22,16 +22,16 @@ angular.module('app', ['ionic', 'firebase'])
     controller: 'TabCtrl'
   })
   // Each tab has its own nav history stack:
-  .state('tab.people', {
-    url: '/people',
+  .state('tab.users', {
+    url: '/users',
     views: {
-      'tab-people': {
-        templateUrl: 'templates/tab-people.html',
-        controller: 'PeopleCtrl'
+      'tab-users': {
+        templateUrl: 'templates/tab-users.html',
+        controller: 'UsersCtrl'
       }
     }
   })
-  .state('tab.chats', {
+  /*.state('tab.chats', {
     url: '/chats',
     views: {
       'tab-chats': {
@@ -48,7 +48,7 @@ angular.module('app', ['ionic', 'firebase'])
         controller: 'ChatCtrl'
       }
     }
-  })
+  })*/
   .state('tab.profile', {
     url: '/profile',
     views: {
@@ -60,7 +60,7 @@ angular.module('app', ['ionic', 'firebase'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/people');
+  $urlRouterProvider.otherwise('/tab/users');
 })
 
 .constant('firebaseUrl', 'https://redint.firebaseio.com')

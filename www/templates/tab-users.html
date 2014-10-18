@@ -1,0 +1,18 @@
+<ion-view title="Participants">
+  <ion-content>
+    <loader ng-show="!data.users"></loader>
+    <div class="list people-list">
+      <div class="item" collection-repeat="user in data.users"
+           collection-item-width="'100%'"
+           collection-item-height="83" ng-style="{height: 83}">
+        <span class="pull-right">
+          <i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i>
+          <span class="label {{user.profile.status.id}}">{{user.profile.status.name}}</span>
+        </span>
+        <h2>{{user.profile.name}}</h2>
+        <span class="pull-right button button-xsmall button-icon ion-more" ng-click="openPopover($event, user)"></span>
+        <p>{{user.profile.description}}</p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
