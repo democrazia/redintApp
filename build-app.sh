@@ -29,10 +29,10 @@ cordova platform remove android
 cordova platform add android
 cp -r app_icons/android/* platforms/android/res/
 cordova build --release android
-cp platforms/android/ant-build/Redint-release-unsigned.apk .
-jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore redint-android-key.keystore -storepass $password Redint-release-unsigned.apk alias_name
-zipalign -v 4 Redint-release-unsigned.apk $prodFile
-rm Redint-release-unsigned.apk
+cp platforms/android/ant-build/CordovaApp-release-unsigned.apk .
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore redint-android-key.keystore -storepass $password CordovaApp-release-unsigned.apk alias_name
+zipalign -v 4 CordovaApp-release-unsigned.apk $prodFile
+rm CordovaApp-release-unsigned.apk
 
 
 # build debug apk

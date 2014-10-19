@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding="UTF-8" standalone="yes"?>
-<widget id="com.redint.android" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Redint</name>
+<widget id="com.redint.android.dev" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>dev-Redint</name>
   <description>
     L'appli brise-glace du networking !
   </description>
