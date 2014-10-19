@@ -1,7 +1,11 @@
 angular.module('app')
 
 
-.controller('TabCtrl', function($scope, $state, UserSrv, StorageSrv){
+.controller('TabCtrl', function($scope, $window, $state, UserSrv, StorageSrv, Config){
+  $scope.showVersion = function(){
+    $window.alert('version: '+Config.version);
+  };
+
   var user = StorageSrv.get('user');
   if(!user || !user.profile || !user.profile.name){
     $state.go('tab.profile');
