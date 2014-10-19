@@ -1,12 +1,15 @@
 angular.module('app')
 
 
-.controller('TabCtrl', function($scope, $state, StorageSrv, UserSrv){
+.controller('TabCtrl', function($scope, $state, UserSrv, PluginsSrv, StorageSrv){
   var user = StorageSrv.get('user');
-  UserSrv.seen(user);
   if(!user || !user.profile || !user.profile.name){
     $state.go('tab.profile');
   }
+
+  PluginsSrv.getDeviceId().then(function(userId){
+    UserSrv.seen(userId);
+  });
 })
 
 
@@ -15,10 +18,13 @@ angular.module('app')
   var data = {
     user: user,
     users: UserSrv.syncUsers(),
-    notifs: NotifSrv.syncNotifs(user.id),
+    notifs: [],
     hepSent: StorageSrv.get('hepSent') || {}
   };
   $scope.data = data;
+  PluginsSrv.getDeviceId().then(function(userId){
+    data.notifs = NotifSrv.syncNotifs(userId);
+  });
 
   var notifAnswers = [
     { text: 'Je lève les bras !' },

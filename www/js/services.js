@@ -25,8 +25,8 @@ angular.module('app')
     return $http.put(userUrl+'/'+user.id+'.json', user);
   }
   
-  function seen(user){
-    return $http.put(userUrl+'/'+user.id+'/lastSeen.json', Date.now());
+  function seen(userId){
+    return $http.put(userUrl+'/'+userId+'/lastSeen.json', Date.now());
   }
 
   return service;
