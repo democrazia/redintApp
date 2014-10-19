@@ -3,76 +3,15 @@ angular.module('app')
 .factory('UserSrv', function($rootScope, $q, $http, $firebase, firebaseUrl){
   'use strict';
   var userUrl = firebaseUrl+'/users';
-  var firebaseRef = new Firebase(userUrl);
-  //var geoFire = new GeoFire(firebaseRef);
-  /*var collection = [];
-  firebaseRef.on('child_added', function(childSnapshot, prevChildName){
-    var user = childSnapshot.val();
-    console.log('child_added', user);
-    $rootScope.safeApply(function(){
-      collection.push(user);
-    });
-  });
-  firebaseRef.on('child_removed', function(oldChildSnapshot){
-    var user = oldChildSnapshot.val();
-    console.log('child_removed', user);
-    $rootScope.safeApply(function(){
-      for(var i in collection){
-        if(collection[i].id === user.id){
-          collection.splice(i, 1);
-        }
-      }
-    });
-  });
-  firebaseRef.on('child_changed', function(childSnapshot, prevChildName){
-    var user = childSnapshot.val();
-    console.log('child_changed', user);
-    $rootScope.safeApply(function(){
-      for(var i in collection){
-        if(collection[i].id === user.id){
-          angular.copy(user, collection[i]);
-        }
-      }
-    });
-  });*/
-  var sync = $firebase(firebaseRef);
-
+  var sync = $firebase(new Firebase(userUrl));
   var service = {
     syncUsers: syncUsers,
-    syncLocalUsers: syncLocalUsers,
     get: get,
     save: save
   };
 
   function syncUsers(coords){
     return sync.$asArray();
-  }
-
-  function syncLocalUsers(coords){
-    var results = [];
-    /*var position = [coords.latitude, coords.longitude];
-    console.log('geoFire.query({center: '+position+', radius: 0.1})');
-    var geoQuery = geoFire.query({center: position, radius: 0.1});
-
-    geoQuery.on('key_entered', function(key, location, distance){
-      console.log(key + ' entered query at ' + location + ' (' + distance + ' km from center)');
-      get(key).then(function(user){
-        user._rel = {
-          location: location,
-          distance: distance*1000 // distance in meters
-        };
-        results.push(user);
-      });
-    });
-    geoQuery.on('key_exited', function(key, location, distance){
-      console.log(key + ' exited query to ' + location + ' (' + distance + ' km from center)');
-      for(var i in results){
-        if(results[i].id === key){
-          results.splice(i, 1);
-        }
-      }
-    });*/
-    return results;
   }
 
   function get(userId){
@@ -82,16 +21,6 @@ angular.module('app')
   }
 
   function save(user){
-    /*var userPromise = $http.put(userUrl+'/'+user.id+'.json', user);
-    if(user && user.position && user.position.latitude){
-      var position = [user.position.latitude, user.position.longitude];
-      console.log('geoFire.set('+user.id+', '+position+')');
-      var geoPromise = geoFire.set(user.id, position);
-    } else {
-      console.log('geoFire.remove('+user.id+')');
-      var geoPromise = geoFire.remove(user.id);
-    }
-    return $q.all([userPromise, geoPromise]);*/
     return $http.put(userUrl+'/'+user.id+'.json', user);
   }
 
