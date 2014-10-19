@@ -63,6 +63,10 @@ angular.module('app')
       PluginsSrv.showToast('✔ Notif envoyée !');
     });
   };
+
+  $scope.doRefresh = function(){
+    $scope.$broadcast('scroll.refreshComplete');
+  };
 })
 
 

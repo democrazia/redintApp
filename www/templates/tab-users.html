@@ -9,6 +9,8 @@
 
   <ion-content>
     <loader ng-show="!(data.users && data.users.length > 0)"></loader>
+    <ion-refresher ng-show="data.users && data.users.length > 0" on-refresh="doRefresh()"
+                   pulling-text="Recharger les données..." refreshing-text="Rechargement!" refreshing-icon="ion-loading-c"></ion-refresher>
     <div class="list people-list">
       <div class="item {{user.profile.status.id}}" collection-repeat="user in data.users | matchUser:data.user | filter:search"
            collection-item-width="'100%'"
