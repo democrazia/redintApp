@@ -31,10 +31,11 @@ angular.module('app')
 
   var notifAnswers = [
     { text: 'Je lève les bras !' },
-    { text: 'A l\'entrée du Hub !' },
-    { text: 'Je suis debout sur une chaise !' },
+    { text: 'Je suis sur une chaise !' },
     { text: 'En bas à droite de l\'amphi !' },
-    { text: 'Je fume une clope dehors !' },
+    { text: 'Hep toi même !!!' },
+    { text: 'Je claque des doigts !' },
+    { text: 'Je choppe le marcassin !' },
     { text: 'A la machine à café !' }
   ];
 
