@@ -28,7 +28,6 @@ sed -i 's/\(<name>\)dev-\(Redint<\/name>\)/\1\2/' $configApk
 cordova platform remove android
 cordova platform add android
 cp -r app_icons/android/* platforms/android/res/
-ionic build
 cordova build --release android
 cp platforms/android/ant-build/Redint-release-unsigned.apk .
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore redint-android-key.keystore -storepass $password Redint-release-unsigned.apk alias_name
@@ -42,9 +41,9 @@ sed -i 's/\(<name>\)\(Redint<\/name>\)/\1dev-\2/' $configApk
 cordova platform remove android
 cordova platform add android
 cp -r app_icons/android/* platforms/android/res/
-grunt build
-cp platforms/android/ant-build/devCookers-debug.apk .
-mv devCookers-debug.apk $debugFile
+ionic build
+cp platforms/android/ant-build/CordovaApp-debug.apk .
+mv CordovaApp-debug.apk $debugFile
 
 
 # Finish...
