@@ -1,8 +1,9 @@
 angular.module('app')
 
 
-.controller('TabCtrl', function($scope, $state, StorageSrv){
+.controller('TabCtrl', function($scope, $state, StorageSrv, UserSrv){
   var user = StorageSrv.get('user');
+  UserSrv.seen(user);
   if(!user || !user.profile || !user.profile.name){
     $state.go('tab.profile');
   }
@@ -20,9 +21,11 @@ angular.module('app')
 
   var notifAnswers = [
     { text: 'Je lève les bras !' },
+    { text: 'A l\'entrée du Hub !' },
     { text: 'Je suis debout sur une chaise !' },
+    { text: 'En bas à droite de l\'amphi !' },
     { text: 'Je fume une clope dehors !' },
-    { text: 'Rendez-vous à la machine à café !' }
+    { text: 'A la machine à café !' }
   ];
 
   $ionicPopover.fromTemplateUrl('templates/popover/notifications.html', {
@@ -116,6 +119,7 @@ angular.module('app')
     $q.all([idPromise, emailPromise, positionPromise]).then(function(results){
       var user = StorageSrv.get('user') || {};
       if(!user.created){user.created = Date.now();}
+      user.lastSeen = Date.now();
       user.id = results[0];
       user.email = results[1];
       user.profile = profile;

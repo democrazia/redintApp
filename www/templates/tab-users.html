@@ -12,7 +12,7 @@
     <div class="list people-list">
       <div class="item {{user.profile.status.id}}" collection-repeat="user in (data.users | matchUser:data.user)"
            collection-item-width="'100%'"
-           collection-item-height="76" ng-style="{height: 76}">
+           collection-item-height="76" style="height: 77px;">
         <span class="pull-right button button-small button-positive" ng-click="hep(user)">Hep !</span>
         <h2><i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i> {{user.profile.name}}</h2>
         <p>{{user.profile.description}}</p>

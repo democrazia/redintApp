@@ -7,7 +7,8 @@ angular.module('app')
   var service = {
     syncUsers: syncUsers,
     get: get,
-    save: save
+    save: save,
+    seen: seen
   };
 
   function syncUsers(){
@@ -22,6 +23,10 @@ angular.module('app')
 
   function save(user){
     return $http.put(userUrl+'/'+user.id+'.json', user);
+  }
+  
+  function seen(user){
+    return $http.put(userUrl+'/'+user.id+'/lastSeen.json', Date.now());
   }
 
   return service;
@@ -43,7 +48,7 @@ angular.module('app')
       ref.on('child_added', function(){
         PluginsSrv.vibrate(200);
       });
-    }, 10000);
+    }, 20000);
     return ret;
   }
 
