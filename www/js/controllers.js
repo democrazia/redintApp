@@ -9,16 +9,15 @@ angular.module('app')
 })
 
 
-.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, StorageSrv, PluginsSrv){
+.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, PokeSrv, PluginsSrv, StorageSrv){
+  var user = StorageSrv.get('user');
   var data = {
-    user: StorageSrv.get('user')
+    user: user,
+    users: UserSrv.syncUsers(),
+    pokes: PokeSrv.syncPokes(user.id)
   };
   $scope.data = data;
   $scope.ctxData = {};
-
-  PluginsSrv.getPosition().then(function(position){
-    data.users = UserSrv.syncUsers(position.coords);
-  });
 
   $ionicPopover.fromTemplateUrl('templates/popover/user-actions.html', {
     scope: $scope
@@ -31,8 +30,11 @@ angular.module('app')
   };
 
   $scope.poke = function(){
+    console.log('pokes', data.pokes);
     var user = $scope.ctxData;
-    alert('poke '+user.name+' !');
+    PokeSrv.sendPoke(data.user.id, user.id).then(function(){
+      PluginsSrv.showToast('✔ Poke envoyé !');
+    });
     $scope.popover.hide();
   };
   $scope.chat = function(){

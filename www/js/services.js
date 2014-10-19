@@ -1,6 +1,6 @@
 angular.module('app')
 
-.factory('UserSrv', function($rootScope, $q, $http, $firebase, firebaseUrl){
+.factory('UserSrv', function($http, $firebase, firebaseUrl){
   'use strict';
   var userUrl = firebaseUrl+'/users';
   var sync = $firebase(new Firebase(userUrl));
@@ -10,7 +10,7 @@ angular.module('app')
     save: save
   };
 
-  function syncUsers(coords){
+  function syncUsers(){
     return sync.$asArray();
   }
 
@@ -22,6 +22,28 @@ angular.module('app')
 
   function save(user){
     return $http.put(userUrl+'/'+user.id+'.json', user);
+  }
+
+  return service;
+})
+
+.factory('PokeSrv', function($http, $firebase, firebaseUrl){
+  'use strict';
+  var pokeUrl = firebaseUrl+'/pokes';
+  var service = {
+    syncPokes: syncPokes,
+    sendPoke: sendPoke
+  };
+
+  function syncPokes(userId){
+    return $firebase(new Firebase(pokeUrl+'/'+userId)).$asArray();
+  }
+
+  function sendPoke(from, to){
+    return $http.post(pokeUrl+'/'+to+'.json', {
+      from: from,
+      date: Date.now()
+    });
   }
 
   return service;

@@ -1,0 +1,7 @@
+.buttons .button .badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0px 5px;
+  font-size: 12px;
+}

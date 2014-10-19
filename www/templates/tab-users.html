@@ -1,4 +1,12 @@
 <ion-view title="Participants">
+  <ion-nav-buttons side="right">
+    <button class="button button-clear">
+      <i class="icon ion-ios7-bell-outline" ng-show="data.pokes.length === 0"></i>
+      <i class="icon ion-ios7-bell" ng-show="data.pokes.length > 0"></i>
+      <span class="badge badge-assertive" ng-show="data.pokes.length > 0">{{data.pokes.length}}</span>
+    </button>
+  </ion-nav-buttons>
+
   <ion-content>
     <loader ng-show="!(data.users && data.users.length > 0)"></loader>
     <div class="list people-list">
