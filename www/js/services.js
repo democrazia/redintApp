@@ -27,7 +27,7 @@ angular.module('app')
   return service;
 })
 
-.factory('NotifSrv', function($http, $firebase, firebaseUrl){
+.factory('NotifSrv', function($window, $http, $firebase, PluginsSrv, firebaseUrl){
   'use strict';
   var notifUrl = firebaseUrl+'/notifs';
   var service = {
@@ -37,7 +37,14 @@ angular.module('app')
   };
 
   function syncNotifs(userId){
-    return $firebase(new Firebase(notifUrl+'/'+userId)).$asArray();
+    var ref = new Firebase(notifUrl+'/'+userId);
+    var ret = $firebase(ref).$asArray();
+    $window.setTimeout(function(){
+      ref.on('child_added', function(){
+        PluginsSrv.vibrate(200);
+      });
+    }, 1000);
+    return ret;
   }
 
   function sendNotif(from, to){
@@ -62,7 +69,8 @@ angular.module('app')
     getPosition: getPosition,
     getDeviceId: getDeviceId,
     getDeviceEmail: getDeviceEmail,
-    showToast: showToast
+    showToast: showToast,
+    vibrate: vibrate
   };
 
   function getDeviceId(){
@@ -125,6 +133,14 @@ angular.module('app')
         $window.plugins.toast.show(message, duration, position, successCb, errorCb);
       }
     });
+  }
+
+  function vibrate(time){
+    if(navigator && navigator.vibrate){
+      $ionicPlatform.ready(function(){
+        navigator.vibrate(time);
+      });
+    }
   }
 
   return service;
