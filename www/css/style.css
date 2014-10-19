@@ -17,7 +17,12 @@
 .people-list .item .biz   { background-color: #f0ad4e; }
 .people-list .item .crea  { background-color: #428bca; }
 
-.notifications-list .unread { background: #f8f8f8; }
+.people-list .item { border-left: 15px solid white; }
+.people-list .item.dev   { border-color: #d9534f; }
+.people-list .item.biz   { border-color: #f0ad4e; }
+.people-list .item.crea  { border-color: #428bca; }
+
+.notifications-list .item.unread { background: #eaeaea; }
 
 .small {
   color: #666;

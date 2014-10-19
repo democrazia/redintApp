@@ -1,4 +1,4 @@
-<ion-view title="Participants">
+<ion-view title="Les participants">
   <ion-nav-buttons side="right">
     <button class="button button-clear" ng-click="openNotifPopover($event)">
       <i class="icon ion-ios7-bell-outline" ng-show="(unreadNotifs = (data.notifs | filter:{read: false})).length === 0"></i>
@@ -10,15 +10,11 @@
   <ion-content>
     <loader ng-show="!(data.users && data.users.length > 0)"></loader>
     <div class="list people-list">
-      <div class="item" collection-repeat="user in (data.users | matchUser:data.user)"
+      <div class="item {{user.profile.status.id}}" collection-repeat="user in (data.users | matchUser:data.user)"
            collection-item-width="'100%'"
-           collection-item-height="83" ng-style="{height: 83}">
-        <span class="pull-right">
-          <i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i>
-          <span class="label {{user.profile.status.id}}">{{user.profile.status.name}}</span>
-        </span>
-        <h2>{{user.profile.name}}</h2>
-        <span class="pull-right button button-xsmall button-icon ion-more" ng-click="openUserPopover($event, user)"></span>
+           collection-item-height="76" ng-style="{height: 76}">
+        <span class="pull-right button button-small button-positive" ng-click="hep(user)">Hep !</span>
+        <h2><i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i> {{user.profile.name}}</h2>
         <p>{{user.profile.description}}</p>
       </div>
     </div>

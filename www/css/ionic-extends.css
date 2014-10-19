@@ -5,3 +5,15 @@
   padding: 0px 5px;
   font-size: 12px;
 }
+
+.button.button-positive {
+  border-color: #53383c;
+  background-color: #826b6e;
+}
+.tabs .tab-item.tab-item-active {
+  color: #a2131d;
+  border-color: #a2131d;
+}
+.scroll-content {
+  background: #eaeaea;
+}

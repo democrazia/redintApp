@@ -43,14 +43,15 @@ angular.module('app')
       ref.on('child_added', function(){
         PluginsSrv.vibrate(200);
       });
-    }, 1000);
+    }, 10000);
     return ret;
   }
 
-  function sendNotif(from, to){
+  function sendNotif(from, to, text){
     return $http.post(notifUrl+'/'+to+'.json', {
       from: from,
       date: Date.now(),
+      text: text ? text : null,
       read: false
     });
   }

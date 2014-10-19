@@ -1,11 +1,17 @@
 <ion-popover-view>
   <ion-content>
     <div class="list notifications-list">
-      <a class="item" ng-class="{unread: !notif.read}" ng-repeat="notif in data.notifs | orderBy:'date':true" ng-click="readNotif(notif)">
-        <i class="icon ion-ios7-bell-outline" ng-show="notif.read"></i>
-        <i class="icon ion-ios7-bell" ng-show="!notif.read"></i>
-        <user-name id="{{notif.from}}"></user-name>
-        <span class="small pull-right">{{notif.date | humanTime}}</span>
+      <a class="item" ng-class="{unread: !notif.read}" ng-repeat="notif in data.notifs | orderBy:'date':true" ng-click="readNotif(notif, notif.from)">
+        <span ng-show="!notif.text">
+          <i class="icon ion-ios7-bell-outline" ng-show="notif.read"></i>
+          <i class="icon ion-ios7-bell" ng-show="!notif.read"></i>
+          <user-name id="{{notif.from}}"></user-name>
+          <span class="small pull-right">{{notif.date | humanTime}}</span>
+        </span>
+        <span ng-show="notif.text" style="white-space: initial;">
+          <user-name id="{{notif.from}}"></user-name>:<br>
+          {{notif.text}}
+        </span>
       </a>
     </div>
   </ion-content>

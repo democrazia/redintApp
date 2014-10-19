@@ -9,7 +9,7 @@ angular.module('app')
 })
 
 
-.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, NotifSrv, PluginsSrv, StorageSrv){
+.controller('UsersCtrl', function($scope, $ionicPopover, $ionicActionSheet, UserSrv, NotifSrv, PluginsSrv, StorageSrv){
   var user = StorageSrv.get('user');
   var data = {
     user: user,
@@ -17,7 +17,13 @@ angular.module('app')
     notifs: NotifSrv.syncNotifs(user.id)
   };
   $scope.data = data;
-  $scope.ctxData = {};
+
+  var notifAnswers = [
+    { text: 'Je lève les bras !' },
+    { text: 'Je suis debout sur une chaise !' },
+    { text: 'Je fume une clope dehors !' },
+    { text: 'Rendez-vous à la machine à café !' }
+  ];
 
   $ionicPopover.fromTemplateUrl('templates/popover/notifications.html', {
     scope: $scope
@@ -30,39 +36,26 @@ angular.module('app')
     }
   };
 
-  $scope.readNotif = function(notif){
+  $scope.readNotif = function(notif, from){
     if(!notif.read){
       NotifSrv.readNotif(user.id, notif);
     }
+    $ionicActionSheet.show({
+      titleText: 'Répondre :',
+      buttons: notifAnswers,
+      buttonClicked: function(index) {
+        console.log('index', index);
+        NotifSrv.sendNotif(user.id, from, notifAnswers[index].text);
+        return true;
+      }
+    });
     $scope.notifPopover.hide();
   };
 
-  $ionicPopover.fromTemplateUrl('templates/popover/user-actions.html', {
-    scope: $scope
-  }).then(function(popover){
-    $scope.userPopover = popover;
-  });
-  $scope.openUserPopover = function($event, user){
-    $scope.ctxData = user;
-    $scope.userPopover.show($event);
-  };
-
-  $scope.poke = function(){
-    var user = $scope.ctxData;
+  $scope.hep = function(user){
     NotifSrv.sendNotif(data.user.id, user.id).then(function(){
-      PluginsSrv.showToast('✔ Notif envoyé !');
+      PluginsSrv.showToast('✔ Notif envoyée !');
     });
-    $scope.userPopover.hide();
-  };
-  $scope.chat = function(){
-    var user = $scope.ctxData;
-    alert('chat with '+user.name+' !');
-    $scope.userPopover.hide();
-  };
-  $scope.viewProfile = function(){
-    var user = $scope.ctxData;
-    alert('viewProfile '+user.name+' !');
-    $scope.userPopover.hide();
   };
 })
 
