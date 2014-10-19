@@ -15,7 +15,8 @@ angular.module('app')
   var data = {
     user: user,
     users: UserSrv.syncUsers(),
-    notifs: NotifSrv.syncNotifs(user.id)
+    notifs: NotifSrv.syncNotifs(user.id),
+    hepSent: StorageSrv.get('hepSent') || {}
   };
   $scope.data = data;
 
@@ -57,6 +58,8 @@ angular.module('app')
 
   $scope.hep = function(user){
     NotifSrv.sendNotif(data.user.id, user.id).then(function(){
+      data.hepSent[user.id] = true;
+      StorageSrv.set('hepSent', data.hepSent);
       PluginsSrv.showToast('✔ Notif envoyée !');
     });
   };

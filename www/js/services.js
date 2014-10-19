@@ -45,7 +45,7 @@ angular.module('app')
     var ref = new Firebase(notifUrl+'/'+userId);
     var ret = $firebase(ref).$asArray();
     $window.setTimeout(function(){
-      ref.on('child_added', function(){
+      ref.endAt().limit(1).on('child_added', function(snapshot){
         PluginsSrv.vibrate(200);
       });
     }, 20000);
