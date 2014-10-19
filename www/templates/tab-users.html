@@ -10,7 +10,7 @@
   <ion-content>
     <loader ng-show="!(data.users && data.users.length > 0)"></loader>
     <div class="list people-list">
-      <div class="item {{user.profile.status.id}}" collection-repeat="user in (data.users | matchUser:data.user)"
+      <div class="item {{user.profile.status.id}}" collection-repeat="user in data.users | matchUser:data.user | filter:search"
            collection-item-width="'100%'"
            collection-item-height="76" style="height: 77px;">
         <span class="pull-right button button-small button-positive" ng-click="hep(user)">Hep !</span>
@@ -19,4 +19,12 @@
       </div>
     </div>
   </ion-content>
+
+  <ion-footer-bar class="item-input-inset">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+      <input type="search" placeholder="Search" ng-model="search">
+    </label>
+    <button class="button button-clear" ng-click="search = '';">Cancel</button>
+  </ion-footer-bar>
 </ion-view>

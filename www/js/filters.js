@@ -17,7 +17,6 @@ angular.module('app')
     if(users){
       for (var i = 0; i < users.length; i++) {
         var user = users[i];
-        console.log('user', user);
         if(curUser.id != user.id && Date.now()-user.lastSeen < deuxHeures && distance(user, curUser) < 100){
           filtered.push(user);
         }
