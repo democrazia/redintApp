@@ -1,15 +1,14 @@
 angular.module('app')
 
 
-.controller('TabCtrl', function($scope, $state, UserSrv, PluginsSrv, StorageSrv){
+.controller('TabCtrl', function($scope, $state, UserSrv, StorageSrv){
   var user = StorageSrv.get('user');
   if(!user || !user.profile || !user.profile.name){
     $state.go('tab.profile');
   }
-
-  PluginsSrv.getDeviceId().then(function(userId){
-    UserSrv.seen(userId);
-  });
+  if(user && user.id){
+    UserSrv.seen(user.id);
+  }
 })
 
 

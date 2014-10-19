@@ -5,9 +5,28 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'firebase'])
+angular.module('app', ['ionic', 'ngSanitize', 'ngAnimate', 'firebase'])
 
-.config(function($stateProvider, $urlRouterProvider){
+.config(function($stateProvider, $urlRouterProvider, $provide){
+  // catch exceptions in angular
+  $provide.decorator('$exceptionHandler', ['$delegate', function($delegate){
+    return function(exception, cause){
+      $delegate(exception, cause);
+
+      var data = {
+        type: 'angular'
+      };
+      if(cause)               { data.cause    = cause;              }
+      if(exception){
+        if(exception.message) { data.message  = exception.message;  }
+        if(exception.name)    { data.name     = exception.name;     }
+        if(exception.stack)   { data.stack    = exception.stack;    }
+      }
+
+      Logger.error(data);
+    };
+  }]);
+
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
