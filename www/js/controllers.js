@@ -67,10 +67,14 @@ angular.module('app')
 
   $scope.hep = function(user){
     NotifSrv.sendNotif(data.user.id, user.id).then(function(){
-      data.hepSent[user.id] = true;
+      data.hepSent[user.id] = Date.now();
       StorageSrv.set('hepSent', data.hepSent);
       PluginsSrv.showToast('✔ Notif envoyée !');
     });
+  };
+
+  $scope.canHep = function(userId){
+    return Date.now()-data.hepSent[userId] > 1000*30;
   };
 
   $scope.doRefresh = function(){
