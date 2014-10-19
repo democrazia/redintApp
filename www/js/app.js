@@ -63,7 +63,8 @@ angular.module('app', ['ionic', 'firebase'])
   $urlRouterProvider.otherwise('/tab/users');
 })
 
-.constant('firebaseUrl', 'https://redint.firebaseio.com')
+.constant('Config', Config)
+.constant('firebaseUrl', 'https://redint.firebaseio.com'+(Config.debug ? '/dev' : ''))
 
 .run(function($rootScope, $ionicPlatform) {
   $ionicPlatform.ready(function() {
