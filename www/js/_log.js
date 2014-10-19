@@ -13,8 +13,8 @@ var Logger = (function(){
 
   return {
     error: function(err){
-      if(!err.time) { event.time = Date.now();  }
-      if(!err.user) { event.user = _getUserId();}
+      if(!err.time) { err.time = Date.now();  }
+      if(!err.user) { err.user = _getUserId();}
       $.ajax({
         type: 'POST',
         url: backgroundUrl+'/errors.json',

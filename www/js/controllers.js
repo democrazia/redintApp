@@ -135,9 +135,9 @@ angular.module('app')
       user.id = results[0];
       user.email = results[1];
       user.profile = profile;
-      user.profile.updated = Date.now();
+      if(user.profile){user.profile.updated = Date.now();}
       user.position = results[2].coords;
-      user.position.updated = Date.now();
+      if(user.position){user.position.updated = Date.now();}
       UserSrv.save(user).then(function(){
         StorageSrv.set('user', user);
         $state.go('tab.users');
