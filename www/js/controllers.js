@@ -56,8 +56,7 @@ angular.module('app')
     $ionicActionSheet.show({
       titleText: 'Répondre :',
       buttons: notifAnswers,
-      buttonClicked: function(index) {
-        console.log('index', index);
+      buttonClicked: function(index){
         NotifSrv.sendNotif(user.id, from, notifAnswers[index].text);
         return true;
       }
@@ -74,7 +73,7 @@ angular.module('app')
   };
 
   $scope.canHep = function(userId){
-    return Date.now()-data.hepSent[userId] > 1000*30;
+    return !data.hepSent[userId] || Date.now()-data.hepSent[userId] > 1000*30;
   };
 
   $scope.doRefresh = function(){

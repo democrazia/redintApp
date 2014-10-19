@@ -24,7 +24,7 @@ angular.module('app')
   function save(user){
     return $http.put(userUrl+'/'+user.id+'.json', user);
   }
-  
+
   function seen(userId){
     return $http.put(userUrl+'/'+userId+'/lastSeen.json', Date.now());
   }
@@ -45,8 +45,12 @@ angular.module('app')
     var ref = new Firebase(notifUrl+'/'+userId);
     var ret = $firebase(ref).$asArray();
     $window.setTimeout(function(){
+      var start = Date.now();
       ref.endAt().limit(1).on('child_added', function(snapshot){
-        PluginsSrv.vibrate(200);
+        var notif = snapshot.val();
+        if(notif && notif.date && notif.date > start){
+          PluginsSrv.vibrate(200);
+        }
       });
     }, 20000);
     return ret;
