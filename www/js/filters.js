@@ -2,6 +2,7 @@ angular.module('app')
 
 .filter('matchUser', function(){
   var deuxHeures = 2 * 60 * 60 * 1000;
+  
   function distance(user1, user2){
     var location1 = user1 && user1.position && user1.position.latitude ? [user1.position.latitude, user1.position.longitude] : null;
     var location2 = user2 && user2.position && user2.position.latitude ? [user2.position.latitude, user2.position.longitude] : null;
@@ -11,7 +12,15 @@ angular.module('app')
       return 0;
     }
   }
-  
+
+  function score(u1, u2){
+    if(u1 && u1.stats && u1.stats.heps && u2 && u2.stats && u2.stats.heps){
+      return u2.stats.heps - u1.stats.heps;
+    } else {
+      return u1.profile.name > u2.profile.name ? 1 : -1;
+    }
+  }
+
   return function(users, curUser){
     var filtered = [];
     if(users){
@@ -21,7 +30,7 @@ angular.module('app')
           filtered.push(user);
         }
       }
-      // TODO : sort
+      filtered.sort(score);
     }
     return filtered;
   };

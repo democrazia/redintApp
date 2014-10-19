@@ -8,7 +8,8 @@ angular.module('app')
     syncUsers: syncUsers,
     get: get,
     save: save,
-    seen: seen
+    seen: seen,
+    wereHeped: wereHeped
   };
 
   function syncUsers(){
@@ -29,10 +30,17 @@ angular.module('app')
     return $http.put(userUrl+'/'+userId+'/lastSeen.json', Date.now());
   }
 
+  function wereHeped(userId){
+    var counterRef = new Firebase(userUrl+'/'+userId+'/stats/heps');
+    counterRef.transaction(function(current_value){
+      return (current_value || 0) + 1;
+    });
+  }
+
   return service;
 })
 
-.factory('NotifSrv', function($window, $http, $firebase, PluginsSrv, firebaseUrl){
+.factory('NotifSrv', function($window, $http, $firebase, PluginsSrv, UserSrv, firebaseUrl){
   'use strict';
   var notifUrl = firebaseUrl+'/notifs';
   var service = {
@@ -57,6 +65,9 @@ angular.module('app')
   }
 
   function sendNotif(from, to, text){
+    if(!text){
+      UserSrv.wereHeped(to);
+    }
     return $http.post(notifUrl+'/'+to+'.json', {
       from: from,
       date: Date.now(),

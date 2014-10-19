@@ -16,7 +16,11 @@
            ng-repeat="user in data.users | matchUser:data.user | filter:search"
            ng-show="user && user.profile && user.profile.name">
         <span class="pull-right button button-small button-positive" ng-click="hep(user)" ng-disabled="!canHep(user.id)">Hep !</span>
-        <h2><i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i> {{user.profile.name}}</h2>
+        <h2>
+          <i class="icon ion-ribbon-b" ng-show="user.profile.pitcher"></i>
+          {{user.profile.name}}
+          <span class="small" ng-show="user.stats && user.stats.heps">({{user.stats.heps}} heps !)</span>
+        </h2>
         <p>{{user.profile.description}}</p>
       </div>
     </div>
