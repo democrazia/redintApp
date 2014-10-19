@@ -16,3 +16,10 @@
 .people-list .item .dev   { background-color: #d9534f; }
 .people-list .item .biz   { background-color: #f0ad4e; }
 .people-list .item .crea  { background-color: #428bca; }
+
+.notifications-list .unread { background: #f8f8f8; }
+
+.small {
+  color: #666;
+  font-size: 14px;
+}

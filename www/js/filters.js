@@ -24,4 +24,11 @@ angular.module('app')
     }
     return filtered;
   };
+})
+
+.filter('humanTime', function(){
+  'use strict';
+  return function(timestamp){
+    return timestamp ? moment(timestamp).fromNow(true) : '<humanTime>';
+  };
 });

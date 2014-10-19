@@ -1,9 +1,9 @@
 <ion-view title="Participants">
   <ion-nav-buttons side="right">
-    <button class="button button-clear">
-      <i class="icon ion-ios7-bell-outline" ng-show="data.pokes.length === 0"></i>
-      <i class="icon ion-ios7-bell" ng-show="data.pokes.length > 0"></i>
-      <span class="badge badge-assertive" ng-show="data.pokes.length > 0">{{data.pokes.length}}</span>
+    <button class="button button-clear" ng-click="openNotifPopover($event)">
+      <i class="icon ion-ios7-bell-outline" ng-show="(unreadNotifs = (data.notifs | filter:{read: false})).length === 0"></i>
+      <i class="icon ion-ios7-bell" ng-show="unreadNotifs.length > 0"></i>
+      <span class="badge badge-assertive" ng-show="unreadNotifs.length > 0">{{unreadNotifs.length}}</span>
     </button>
   </ion-nav-buttons>
 
@@ -18,7 +18,7 @@
           <span class="label {{user.profile.status.id}}">{{user.profile.status.name}}</span>
         </span>
         <h2>{{user.profile.name}}</h2>
-        <span class="pull-right button button-xsmall button-icon ion-more" ng-click="openPopover($event, user)"></span>
+        <span class="pull-right button button-xsmall button-icon ion-more" ng-click="openUserPopover($event, user)"></span>
         <p>{{user.profile.description}}</p>
       </div>
     </div>

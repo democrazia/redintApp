@@ -1,5 +1,20 @@
 angular.module('app')
 
+.directive('userName', function(UserSrv){
+  return {
+    restrict: 'E',
+    template: '<span>{{name}}</span>',
+    scope: {
+      id: '@'
+    },
+    link: function(scope, element, attr) {
+      UserSrv.get(scope.id).then(function(user){
+        scope.name = user.profile.name;
+      });
+    }
+  };
+})
+
 .directive('input', function($timeout){
   return {
     restrict: 'E',

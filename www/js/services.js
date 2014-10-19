@@ -27,23 +27,30 @@ angular.module('app')
   return service;
 })
 
-.factory('PokeSrv', function($http, $firebase, firebaseUrl){
+.factory('NotifSrv', function($http, $firebase, firebaseUrl){
   'use strict';
-  var pokeUrl = firebaseUrl+'/pokes';
+  var notifUrl = firebaseUrl+'/notifs';
   var service = {
-    syncPokes: syncPokes,
-    sendPoke: sendPoke
+    syncNotifs: syncNotifs,
+    sendNotif: sendNotif,
+    readNotif: readNotif
   };
 
-  function syncPokes(userId){
-    return $firebase(new Firebase(pokeUrl+'/'+userId)).$asArray();
+  function syncNotifs(userId){
+    return $firebase(new Firebase(notifUrl+'/'+userId)).$asArray();
   }
 
-  function sendPoke(from, to){
-    return $http.post(pokeUrl+'/'+to+'.json', {
+  function sendNotif(from, to){
+    return $http.post(notifUrl+'/'+to+'.json', {
       from: from,
-      date: Date.now()
+      date: Date.now(),
+      read: false
     });
+  }
+
+  function readNotif(userId, notif){
+    notif.read = true;
+    return $http.put(notifUrl+'/'+userId+'/'+notif.$id+'.json', notif);
   }
 
   return service;

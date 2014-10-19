@@ -9,43 +9,60 @@ angular.module('app')
 })
 
 
-.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, PokeSrv, PluginsSrv, StorageSrv){
+.controller('UsersCtrl', function($scope, $ionicPopover, UserSrv, NotifSrv, PluginsSrv, StorageSrv){
   var user = StorageSrv.get('user');
   var data = {
     user: user,
     users: UserSrv.syncUsers(),
-    pokes: PokeSrv.syncPokes(user.id)
+    notifs: NotifSrv.syncNotifs(user.id)
   };
   $scope.data = data;
   $scope.ctxData = {};
 
+  $ionicPopover.fromTemplateUrl('templates/popover/notifications.html', {
+    scope: $scope
+  }).then(function(popover){
+    $scope.notifPopover = popover;
+  });
+  $scope.openNotifPopover = function($event){
+    if(data.notifs.length > 0){
+      $scope.notifPopover.show($event);
+    }
+  };
+
+  $scope.readNotif = function(notif){
+    if(!notif.read){
+      NotifSrv.readNotif(user.id, notif);
+    }
+    $scope.notifPopover.hide();
+  };
+
   $ionicPopover.fromTemplateUrl('templates/popover/user-actions.html', {
     scope: $scope
   }).then(function(popover){
-    $scope.popover = popover;
+    $scope.userPopover = popover;
   });
-  $scope.openPopover = function($event, user){
+  $scope.openUserPopover = function($event, user){
     $scope.ctxData = user;
-    $scope.popover.show($event);
+    $scope.userPopover.show($event);
   };
 
   $scope.poke = function(){
-    console.log('pokes', data.pokes);
     var user = $scope.ctxData;
-    PokeSrv.sendPoke(data.user.id, user.id).then(function(){
-      PluginsSrv.showToast('✔ Poke envoyé !');
+    NotifSrv.sendNotif(data.user.id, user.id).then(function(){
+      PluginsSrv.showToast('✔ Notif envoyé !');
     });
-    $scope.popover.hide();
+    $scope.userPopover.hide();
   };
   $scope.chat = function(){
     var user = $scope.ctxData;
     alert('chat with '+user.name+' !');
-    $scope.popover.hide();
+    $scope.userPopover.hide();
   };
   $scope.viewProfile = function(){
     var user = $scope.ctxData;
     alert('viewProfile '+user.name+' !');
-    $scope.popover.hide();
+    $scope.userPopover.hide();
   };
 })
 
